@@ -34,7 +34,19 @@ m_list_samples <- m_list_samples %>%
   janitor::clean_names()
 
 #unifying column names
-j_samples <- j_samples %>%
-  rename(do1_code=sample_id_d01_number)
+#j_samples <- j_samples %>%
+  #rename(do1_code=sample_id_d01_number)
+  #rename(secondary_code=site_code)
+ 
+#m_list_samples <- m_list_samples %>%
+  #rename(sample_no=sample_number)
+```
+
+```{r combining}
+
+
+#joining the two together
+tot_samples <- m_list_samples %>%
+  full_join(j_samples, by = c())
 ```
 
