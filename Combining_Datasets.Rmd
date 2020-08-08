@@ -25,3 +25,16 @@ m_list_samples <- read_excel(here("data", "Samples_Master.xlsx"), sheet = "Maste
 
 ```
 
+```{r tidying_samples_up}
+
+#cleaning the names
+j_samples <- j_samples %>%
+  janitor::clean_names()
+m_list_samples <- m_list_samples %>%
+  janitor::clean_names()
+
+#unifying column names
+j_samples <- j_samples %>%
+  rename(do1_code=sample_id_d01_number)
+```
+
