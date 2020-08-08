@@ -18,4 +18,10 @@ library(kableExtra) #install.packages("kableExtra")
 library(skimr) #install.packages("skimr")
 ```
 
+```{r importing_data}
+
+j_samples <- read_excel(here("data", "Samples_Master.xlsx"), sheet = "Jack_samples", n_max = 109)
+m_list_samples <- read_excel(here("data", "Samples_Master.xlsx"), sheet = "Masterlist_samples", n_max = 49)
+
+```
 
