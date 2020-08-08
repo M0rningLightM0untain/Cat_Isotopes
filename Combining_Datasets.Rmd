@@ -57,6 +57,13 @@ tot_samples <- m_list_samples %>%
   
 ```
 
+```{r sorted into groups by period etc.}
+
+
+```
+
+
+
 ```{r simple_graphs}
 plot_set <- tot_samples
 
@@ -65,12 +72,27 @@ gg_base <- ggplot2::ggplot(data = plot_set, aes(x = d13c, y = d15n))
 ##now that is done time to make some graphs
 gg_base +
   geom_point() +
-  aes()
-      theme_linedraw() +
+  aes() +
+      theme_classic() +
       labs(
         x = "δ13C‰",
         y = "δ15N‰",
         title = "Basic plot of tested samples",
         subtitle = "As of 08/08/2020")
+      #ggsave(here("figures", "basic_all_tested.jpg"), dpi = 180, width = 8, height = 7)
+    
+##that worked like a charm now for more complexity
+gg_base +
+  geom_point() +
+  aes(
+    color = period
+  ) +
+      theme_classic() +
+      labs(
+        x = "δ13C‰",
+        y = "δ15N‰",
+        title = "Basic plot of tested samples by period",
+        subtitle = "As of 08/08/2020")
+      #ggsave(here("figures", "basic_all_tested_by_period .jpg"), dpi = 180, width = 8, height = 7)
 ```
 
