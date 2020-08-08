@@ -35,13 +35,13 @@ m_list_samples <- m_list_samples %>%
   janitor::clean_names()
 
 #unifying column names
-#j_samples <- j_samples %>%
-  #rename(do1_code=sample_id_d01_number)
-  #rename(secondary_code=site_code)
-  #rename(element=skeletal_element)
+j_samples <- j_samples %>%
+  rename(do1_code=sample_id_d01_number)
+  rename(secondary_code=site_code)
+  rename(element=skeletal_element)
  
-#m_list_samples <- m_list_samples %>%
-  #rename(sample_no=sample_number)
+m_list_samples <- m_list_samples %>%
+  rename(sample_no=sample_number)
 ```
 
 ```{r combining}
@@ -60,6 +60,17 @@ tot_samples <- m_list_samples %>%
 ```{r simple_graphs}
 plot_set <- tot_samples
 
-gg_base <- ggplot2::ggplot(data = tot_samples, aes(x = d13c, y = d15n))
+gg_base <- ggplot2::ggplot(data = plot_set, aes(x = d13c, y = d15n))
+
+##now that is done time to make some graphs
+gg_base +
+  geom_point() +
+  aes()
+      theme_linedraw() +
+      labs(
+        x = "δ13C‰",
+        y = "δ15N‰",
+        title = "Basic plot of tested samples",
+        subtitle = "As of 08/08/2020")
 ```
 
