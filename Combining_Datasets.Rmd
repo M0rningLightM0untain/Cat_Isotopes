@@ -48,7 +48,7 @@ m_list_samples <- m_list_samples %>%
 ```{r combining}
 
 
-#joining the two together FINAL PROCESS
+#joining the two together
 tot_samples <- m_list_samples %>%
   full_join(j_samples, by = c("sample_no", "do1_code", "site", "secondary_code", "period", "date", "element", "d13c", "d15n"))
 ```
@@ -64,23 +64,41 @@ tot_samples_grouped <- tot_samples %>%
   arrange(period)
 
 cats_Anglo_Sax <- tot_samples %>%
-  filter(period == "Anglo-Saxon")
+  filter(period == "Anglo-Saxon") %>%
+  select_if(
+    ~sum(
+      !is.na(.))>0)
 
 cats_Iron_Age <- tot_samples %>%
   filter(period == "Iron Age" |
-           period == "Iron Age/Roman")
+           period == "Iron Age/Roman")%>%
+  select_if(
+    ~sum(
+      !is.na(.))>0)
 
 cats_Medieval <- tot_samples %>%
-  filter(period == "Medieval")
+  filter(period == "Medieval")%>%
+  select_if(
+    ~sum(
+      !is.na(.))>0)
 
 cats_Post_Med <- tot_samples %>%
-  filter(period == "Post-Medieval")
+  filter(period == "Post-Medieval")%>%
+  select_if(
+    ~sum(
+      !is.na(.))>0)
 
 cats_Roman <- tot_samples %>%
-  filter(period == "Roman")
+  filter(period == "Roman")%>%
+  select_if(
+    ~sum(
+      !is.na(.))>0)
 
 cats_Modern_jsample <- tot_samples %>%
-  filter(period == "Modern")
+  filter(period == "Modern")%>%
+  select_if(
+    ~sum(
+      !is.na(.))>0)
 
 
 ```
