@@ -162,4 +162,31 @@ cats_Anglo_Sax_G +
   scale_y_continuous(breaks = c(4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14))
 ```
 
+```{r Iron Age}
+#each period colored by site
+cats_Iron_Age_G <- ggplot2::ggplot(data = cats_Iron_Age, aes(x = d13c, y = d15n, group = site))
+
+cats_Iron_Age_G +
+  geom_point() +
+  aes(
+    color = site
+  ) +
+      theme(
+        plot.title = element_text(hjust = 0.5, face = 'bold'),
+        plot.subtitle = element_text(hjust = 0.5),
+        panel.background = element_rect(fill = 'white'),
+        panel.grid = element_line(color = 'darkgrey'),
+        axis.line = element_line(color = 'black'),
+        panel.grid.minor = element_line(color = 'white')
+      ) +
+      labs(
+        x = "\u03B413C‰",
+        y = "\u03B415N‰",
+        title = "Basic Plot of Iron Age Samples",
+        color = "Site"
+        ) +
+  coord_cartesian(xlim = c(-23,-16), ylim = c(4,14), expand = FALSE) +
+  scale_x_continuous(breaks = c(-23, -22, -21, -20, -19, -18, -17, -16)) +
+  scale_y_continuous(breaks = c(4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14))
+```
 
