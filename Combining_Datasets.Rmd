@@ -92,12 +92,23 @@ gg_base <- ggplot2::ggplot(data = plot_set, aes(x = d13c, y = d15n))
 gg_base +
   geom_point() +
   aes() +
-      theme_classic() +
+      theme(
+        plot.title = element_text(hjust = 0.5, face = 'bold'),
+        plot.subtitle = element_text(hjust = 0.5),
+        panel.background = element_rect(fill = 'white'),
+        panel.grid = element_line(color = 'darkgrey'),
+        axis.line = element_line(color = 'black'),
+        panel.grid.minor = element_line(color = 'white')) +
       labs(
         x = "δ13C‰",
         y = "δ15N‰",
         title = "Basic plot of tested samples",
-        subtitle = "As of 08/08/2020")
+        subtitle = "As of 08/08/2020") +
+  #axis limits
+  coord_cartesian(xlim = c(-23,-16), ylim = c(4,14), expand = FALSE) +
+  #tick marks
+  scale_x_continuous(breaks = c(-23, -22, -21, -20, -19, -18, -17, -16)) +
+  scale_y_continuous(breaks = c(4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14))
       #ggsave(here("figures", "basic_all_tested.jpg"), dpi = 180, width = 8, height = 7)
     
 ##that worked like a charm now for more complexity
@@ -106,13 +117,24 @@ gg_base +
   aes(
     color = period
   ) +
-      theme_classic() +
+      theme(
+        plot.title = element_text(hjust = 0.5, face = 'bold'),
+        plot.subtitle = element_text(hjust = 0.5),
+        panel.background = element_rect(fill = 'white'),
+        panel.grid = element_line(color = 'darkgrey'),
+        axis.line = element_line(color = 'black'),
+        panel.grid.minor = element_line(color = 'white')) +
       labs(
         x = "δ13C‰",
         y = "δ15N‰",
         title = "Basic plot of tested samples by period",
-        subtitle = "As of 08/08/2020")
-      #ggsave(here("figures", "basic_all_tested_by_period .jpg"), dpi = 180, width = 8, height = 7)
+        subtitle = "As of 08/08/2020") +
+  #axis limits
+  coord_cartesian(xlim = c(-23,-16), ylim = c(4,14), expand = FALSE) +
+  #tick marks
+  scale_x_continuous(breaks = c(-23, -22, -21, -20, -19, -18, -17, -16)) +
+  scale_y_continuous(breaks = c(4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14))
+      #ggsave(here("figures", "basic_all_tested_by_period .jpg"), dpi = 180, width = 16, height = 14)
 ```
 
 ```{r period graphs}
@@ -125,13 +147,29 @@ by_period_figure +
   aes(
     color = period
   ) +
-      theme_minimal() +
+      theme(
+        plot.title = element_text(hjust = 0.5, face = 'bold'),
+        plot.subtitle = element_text(hjust = 0.5),
+        panel.background = element_rect(fill = 'white'),
+        panel.grid = element_line(color = 'darkgrey'),
+        axis.line = element_line(color = 'black'),
+        panel.grid.minor = element_line(color = 'white'),
+        strip.background = element_rect(color = 'white', fill = 'white')
+        ) +
       labs(
         x = "δ13C‰",
         y = "δ15N‰",
         title = "Basic plot of tested samples",
-        subtitle = "As of 08/08/2020") +
-        facet_wrap(~ period)
+        subtitle = "As of 08/08/2020",
+        color = "Period") +
+        facet_wrap(~ period) +
+  #axis limits
+  coord_cartesian(xlim = c(-23,-16), ylim = c(4,14), expand = FALSE) +
+  #tick marks
+  scale_x_continuous(breaks = c(-23, -22, -21, -20, -19, -18, -17, -16)) +
+  scale_y_continuous(breaks = c(4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14))
+
+  #ggsave(here("figures", "faceted_by_period .jpg"), dpi = 180, width = 16, height = 14)
 ```
 
 ```{r Anglo-Saxon graph}
@@ -165,6 +203,8 @@ cats_Anglo_Sax_G +
   #tick marks
   scale_x_continuous(breaks = c(-23, -22, -21, -20, -19, -18, -17, -16)) +
   scale_y_continuous(breaks = c(4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14))
+
+  #ggsave(here("figures", "Anglo-Saxon_by_site .jpg"), dpi = 180, width = 16, height = 14)
 ```
 
 ```{r Iron Age}
@@ -197,7 +237,9 @@ cats_Iron_Age_G +
   coord_cartesian(xlim = c(-23,-16), ylim = c(4,14), expand = FALSE) +
   #tick marks
   scale_x_continuous(breaks = c(-23, -22, -21, -20, -19, -18, -17, -16)) +
-  scale_y_continuous(breaks = c(4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14)) 
+  scale_y_continuous(breaks = c(4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14))
+
+  #ggsave(here("figures", "Iron_Age_by_Site.jpg"), dpi = 180, width = 16, height = 14)
 ```
 
 ```{r Roman Graphs}
@@ -231,6 +273,8 @@ cats_Roman_G +
   #tick marks
   scale_x_continuous(breaks = c(-23, -22, -21, -20, -19, -18, -17, -16)) +
   scale_y_continuous(breaks = c(4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14))
+
+  #ggsave(here("figures", "Roman_by_Site.jpg"), dpi = 180, width = 16, height = 14)
 ```
 
 ```{r Medieval gragh}
@@ -264,6 +308,8 @@ cats_Medieval_G +
   #tick marks
   scale_x_continuous(breaks = c(-23, -22, -21, -20, -19, -18, -17, -16)) +
   scale_y_continuous(breaks = c(4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14))
+
+  #ggsave(here("figures", "Medieval_by_Site.jpg"), dpi = 180, width = 16, height = 14)
 ```
 
 ```{r Post-Medieval}
@@ -297,6 +343,8 @@ cats_Post_Med_G +
   #tick marks
   scale_x_continuous(breaks = c(-23, -22, -21, -20, -19, -18, -17, -16)) +
   scale_y_continuous(breaks = c(4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14))
+
+  #ggsave(here("figures", "Post-Medieval_by_Site.jpg"), dpi = 180, width = 16, height = 14)
 ```
 
 ```{r Modern}
@@ -330,5 +378,7 @@ cats_Modern_jsample_G +
   #tick marks
   scale_x_continuous(breaks = c(-23, -22, -21, -20, -19, -18, -17, -16)) +
   scale_y_continuous(breaks = c(4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14))
+
+  #ggsave(here("figures", "Modern_from_set_by_Site.jpg"), dpi = 180, width = 16, height = 14)
 ```
 
