@@ -132,7 +132,9 @@ by_period_figure +
         title = "Basic plot of tested samples",
         subtitle = "As of 08/08/2020") +
         facet_wrap(~ period)
+```
 
+```{r Anglo-Saxon graph}
 #each period colored by site
 cats_Anglo_Sax_G <- ggplot2::ggplot(data = cats_Anglo_Sax, aes(x = d13c, y = d15n, group = site))
 
@@ -146,7 +148,8 @@ cats_Anglo_Sax_G +
         plot.subtitle = element_text(hjust = 0.5),
         panel.background = element_rect(fill = 'white'),
         panel.grid = element_line(color = 'darkgrey'),
-        axis.line = element_line(colour = 'black')
+        axis.line = element_line(color = 'black'),
+        panel.grid.minor = element_line(color = 'white')
       ) +
       labs(
         x = "δ13C‰",
@@ -159,4 +162,5 @@ cats_Anglo_Sax_G +
   scale_y_continuous(breaks = c(4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14))
 
 ```
+
 
