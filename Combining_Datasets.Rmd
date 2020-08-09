@@ -17,6 +17,7 @@ library(janitor) #install.packages("janitor")
 library(kableExtra) #install.packages("kableExtra")
 library(skimr) #install.packages("skimr")
 library(dplyr)
+library(data.table)#install.packages("data.table")
 ```
 
 ```{r importing_data}
@@ -58,6 +59,12 @@ tot_samples <- m_list_samples %>%
 ```
 
 ```{r sorted into groups by period etc.}
+#creating individual groups by period
+tot_samples_grouped <- tot_samples %>%
+  arrange(period)
+
+cats_Anglo_Sax <- tot_samples %>%
+  filter(period == "Anglo-Saxon")
 
 
 ```
