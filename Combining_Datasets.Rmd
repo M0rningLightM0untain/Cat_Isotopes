@@ -25,21 +25,18 @@ library(data.table)#install.packages("data.table")
 j_samples <- read_excel(here("data", "Samples_Master.xlsx"), sheet = "Jack_samples", n_max = 109)
 m_list_samples <- read_excel(here("data", "Samples_Master.xlsx"), sheet = "Masterlist_samples", n_max = 49)
 
-```
-
-```{r tidying_samples_up}
-
 #cleaning the names
 j_samples <- j_samples %>%
   janitor::clean_names()
 m_list_samples <- m_list_samples %>%
   janitor::clean_names()
+```
+
+```{r tidying_samples_up}
 
 #unifying column names
 j_samples <- j_samples %>%
   rename(do1_code=sample_id_d01_number)
-  rename(secondary_code=site_code)
-  rename(element=skeletal_element)
  
 m_list_samples <- m_list_samples %>%
   rename(sample_no=sample_number)
@@ -67,8 +64,7 @@ cats_Anglo_Sax <- tot_samples %>%
   filter(period == "Anglo-Saxon") #%>% remove_empty(which = c("cols"), quiet = TRUE)
 
 cats_Iron_Age <- tot_samples %>%
-  filter(period == "Iron Age" |
-           period == "Iron Age/Roman") #%>% remove_empty(which = c("cols"), quiet = TRUE)
+  filter(period == "Iron Age") #%>% remove_empty(which = c("cols"), quiet = TRUE)
 
 cats_Medieval <- tot_samples %>%
   filter(period == "Medieval") #%>% remove_empty(which = c("cols"), quiet = TRUE)
@@ -117,5 +113,23 @@ gg_base +
         title = "Basic plot of tested samples by period",
         subtitle = "As of 08/08/2020")
       #ggsave(here("figures", "basic_all_tested_by_period .jpg"), dpi = 180, width = 8, height = 7)
+```
+
+```{r period graphs}
+#plotting the results by period
+by_period_figure <- ggplot2::ggplot(data = tot_samples, aes(x = d13c, y = d15n, group = period))
+
+by_period_figure +
+  geom_point() +
+  aes(
+    color = period
+  ) +
+      theme_minimal() +
+      labs(
+        x = "δ13C‰",
+        y = "δ15N‰",
+        title = "Basic plot of tested samples",
+        subtitle = "As of 08/08/2020") +
+        facet_wrap(~ period)
 ```
 
