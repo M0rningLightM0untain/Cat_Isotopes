@@ -135,8 +135,11 @@ by_period_figure +
 ```
 
 ```{r Anglo-Saxon graph}
+#Drop empty and unprocessed samples
+cats_Anglo_Sax_d <- drop_na(cats_Anglo_Sax, d13c)
+
 #each period colored by site
-cats_Anglo_Sax_G <- ggplot2::ggplot(data = cats_Anglo_Sax, aes(x = d13c, y = d15n, group = site))
+cats_Anglo_Sax_G <- ggplot2::ggplot(data = cats_Anglo_Sax_d, aes(x = d13c, y = d15n, group = site))
 
 cats_Anglo_Sax_G +
   geom_point() +
@@ -157,14 +160,19 @@ cats_Anglo_Sax_G +
         title = "Basic Plot of Anglo-Saxon Samples",
         color = "Site"
         ) +
+  #axis limits
   coord_cartesian(xlim = c(-23,-16), ylim = c(4,14), expand = FALSE) +
+  #tick marks
   scale_x_continuous(breaks = c(-23, -22, -21, -20, -19, -18, -17, -16)) +
   scale_y_continuous(breaks = c(4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14))
 ```
 
 ```{r Iron Age}
+#Drop empty and unprocessed samples
+cats_Iron_Age_d <- drop_na(cats_Iron_Age, d13c)
+
 #each period colored by site
-cats_Iron_Age_G <- ggplot2::ggplot(data = cats_Iron_Age, aes(x = d13c, y = d15n, group = site))
+cats_Iron_Age_G <- ggplot2::ggplot(data = cats_Iron_Age_d, aes(x = d13c, y = d15n, group = site))
 
 cats_Iron_Age_G +
   geom_point() +
@@ -185,8 +193,10 @@ cats_Iron_Age_G +
         title = "Basic Plot of Iron Age Samples",
         color = "Site"
         ) +
+  #axis limits
   coord_cartesian(xlim = c(-23,-16), ylim = c(4,14), expand = FALSE) +
+  #tick marks
   scale_x_continuous(breaks = c(-23, -22, -21, -20, -19, -18, -17, -16)) +
-  scale_y_continuous(breaks = c(4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14))
+  scale_y_continuous(breaks = c(4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14)) 
 ```
 
