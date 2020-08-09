@@ -64,41 +64,23 @@ tot_samples_grouped <- tot_samples %>%
   arrange(period)
 
 cats_Anglo_Sax <- tot_samples %>%
-  filter(period == "Anglo-Saxon") %>%
-  select_if(
-    ~sum(
-      !is.na(.))>0)
+  filter(period == "Anglo-Saxon") #%>% remove_empty(which = c("cols"), quiet = TRUE)
 
 cats_Iron_Age <- tot_samples %>%
   filter(period == "Iron Age" |
-           period == "Iron Age/Roman")%>%
-  select_if(
-    ~sum(
-      !is.na(.))>0)
+           period == "Iron Age/Roman") #%>% remove_empty(which = c("cols"), quiet = TRUE)
 
 cats_Medieval <- tot_samples %>%
-  filter(period == "Medieval")%>%
-  select_if(
-    ~sum(
-      !is.na(.))>0)
+  filter(period == "Medieval") #%>% remove_empty(which = c("cols"), quiet = TRUE)
 
 cats_Post_Med <- tot_samples %>%
-  filter(period == "Post-Medieval")%>%
-  select_if(
-    ~sum(
-      !is.na(.))>0)
+  filter(period == "Post-Medieval")#%>% remove_empty(which = c("cols"), quiet = TRUE)
 
 cats_Roman <- tot_samples %>%
-  filter(period == "Roman")%>%
-  select_if(
-    ~sum(
-      !is.na(.))>0)
+  filter(period == "Roman") #%>% remove_empty(which = c("cols"), quiet = TRUE)
 
 cats_Modern_jsample <- tot_samples %>%
-  filter(period == "Modern")%>%
-  select_if(
-    ~sum(
-      !is.na(.))>0)
+  filter(period == "Modern") #%>% remove_empty(which = c("cols"), quiet = TRUE)
 
 
 ```
