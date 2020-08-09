@@ -200,3 +200,135 @@ cats_Iron_Age_G +
   scale_y_continuous(breaks = c(4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14)) 
 ```
 
+```{r Roman Graphs}
+#Drop empty and unprocessed samples
+cats_Roman_d <- drop_na(cats_Roman, d13c)
+
+#each period colored by site
+cats_Roman_G <- ggplot2::ggplot(data = cats_Roman_d, aes(x = d13c, y = d15n, group = site))
+
+cats_Roman_G +
+  geom_point() +
+  aes(
+    color = site
+  ) +
+      theme(
+        plot.title = element_text(hjust = 0.5, face = 'bold'),
+        plot.subtitle = element_text(hjust = 0.5),
+        panel.background = element_rect(fill = 'white'),
+        panel.grid = element_line(color = 'darkgrey'),
+        axis.line = element_line(color = 'black'),
+        panel.grid.minor = element_line(color = 'white')
+      ) +
+      labs(
+        x = "\u03B413C‰",
+        y = "\u03B415N‰",
+        title = "Basic Plot of Roman Samples",
+        color = "Site"
+        ) +
+  #axis limits
+  coord_cartesian(xlim = c(-23,-16), ylim = c(4,14), expand = FALSE) +
+  #tick marks
+  scale_x_continuous(breaks = c(-23, -22, -21, -20, -19, -18, -17, -16)) +
+  scale_y_continuous(breaks = c(4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14))
+```
+
+```{r Medieval gragh}
+#Drop empty and unprocessed samples
+cats_Medieval_d <- drop_na(cats_Medieval, d13c)
+
+#each period colored by site
+cats_Medieval_G <- ggplot2::ggplot(data = cats_Medieval_d, aes(x = d13c, y = d15n, group = site))
+
+cats_Medieval_G +
+  geom_point() +
+  aes(
+    color = site
+  ) +
+      theme(
+        plot.title = element_text(hjust = 0.5, face = 'bold'),
+        plot.subtitle = element_text(hjust = 0.5),
+        panel.background = element_rect(fill = 'white'),
+        panel.grid = element_line(color = 'darkgrey'),
+        axis.line = element_line(color = 'black'),
+        panel.grid.minor = element_line(color = 'white')
+      ) +
+      labs(
+        x = "\u03B413C‰",
+        y = "\u03B415N‰",
+        title = "Basic Plot of Medieval Samples",
+        color = "Site"
+        ) +
+  #axis limits
+  coord_cartesian(xlim = c(-23,-16), ylim = c(4,14), expand = FALSE) +
+  #tick marks
+  scale_x_continuous(breaks = c(-23, -22, -21, -20, -19, -18, -17, -16)) +
+  scale_y_continuous(breaks = c(4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14))
+```
+
+```{r Post-Medieval}
+#Drop empty and unprocessed samples
+cats_Post_Med_d <- drop_na(cats_Post_Med, d13c)
+
+#each period colored by site
+cats_Post_Med_G <- ggplot2::ggplot(data = cats_Post_Med_d, aes(x = d13c, y = d15n, group = site))
+
+cats_Post_Med_G +
+  geom_point() +
+  aes(
+    color = site
+  ) +
+      theme(
+        plot.title = element_text(hjust = 0.5, face = 'bold'),
+        plot.subtitle = element_text(hjust = 0.5),
+        panel.background = element_rect(fill = 'white'),
+        panel.grid = element_line(color = 'darkgrey'),
+        axis.line = element_line(color = 'black'),
+        panel.grid.minor = element_line(color = 'white')
+      ) +
+      labs(
+        x = "\u03B413C‰",
+        y = "\u03B415N‰",
+        title = "Basic Plot of Post-Medieval Samples",
+        color = "Site"
+        ) +
+  #axis limits
+  coord_cartesian(xlim = c(-23,-16), ylim = c(4,14), expand = FALSE) +
+  #tick marks
+  scale_x_continuous(breaks = c(-23, -22, -21, -20, -19, -18, -17, -16)) +
+  scale_y_continuous(breaks = c(4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14))
+```
+
+```{r Modern}
+#Drop empty and unprocessed samples
+cats_Modern_jsample_d <- drop_na(cats_Modern_jsample, d13c)
+
+#each period colored by site
+cats_Modern_jsample_G <- ggplot2::ggplot(data = cats_Modern_jsample_d, aes(x = d13c, y = d15n, group = site))
+
+cats_Modern_jsample_G +
+  geom_point() +
+  aes(
+    color = site
+  ) +
+      theme(
+        plot.title = element_text(hjust = 0.5, face = 'bold'),
+        plot.subtitle = element_text(hjust = 0.5),
+        panel.background = element_rect(fill = 'white'),
+        panel.grid = element_line(color = 'darkgrey'),
+        axis.line = element_line(color = 'black'),
+        panel.grid.minor = element_line(color = 'white')
+      ) +
+      labs(
+        x = "\u03B413C‰",
+        y = "\u03B415N‰",
+        title = "Basic Plot of Modern Samples",
+        color = "Site"
+        ) +
+  #axis limits
+  coord_cartesian(xlim = c(-23,-16), ylim = c(4,14), expand = FALSE) +
+  #tick marks
+  scale_x_continuous(breaks = c(-23, -22, -21, -20, -19, -18, -17, -16)) +
+  scale_y_continuous(breaks = c(4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14))
+```
+
