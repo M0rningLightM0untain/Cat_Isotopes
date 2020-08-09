@@ -66,6 +66,22 @@ tot_samples_grouped <- tot_samples %>%
 cats_Anglo_Sax <- tot_samples %>%
   filter(period == "Anglo-Saxon")
 
+cats_Iron_Age <- tot_samples %>%
+  filter(period == "Iron Age" |
+           period == "Iron Age/Roman")
+
+cats_Medieval <- tot_samples %>%
+  filter(period == "Medieval")
+
+cats_Post_Med <- tot_samples %>%
+  filter(period == "Post-Medieval")
+
+cats_Roman <- tot_samples %>%
+  filter(period == "Roman")
+
+cats_Modern_jsample <- tot_samples %>%
+  filter(period == "Modern")
+
 
 ```
 
