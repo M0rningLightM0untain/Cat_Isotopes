@@ -119,6 +119,7 @@ gg_base +
 #plotting the results by period
 by_period_figure <- ggplot2::ggplot(data = tot_samples, aes(x = d13c, y = d15n, group = period))
 
+#all together
 by_period_figure +
   geom_point() +
   aes(
@@ -131,5 +132,31 @@ by_period_figure +
         title = "Basic plot of tested samples",
         subtitle = "As of 08/08/2020") +
         facet_wrap(~ period)
+
+#each period colored by site
+cats_Anglo_Sax_G <- ggplot2::ggplot(data = cats_Anglo_Sax, aes(x = d13c, y = d15n, group = site))
+
+cats_Anglo_Sax_G +
+  geom_point() +
+  aes(
+    color = site
+  ) +
+      theme(
+        plot.title = element_text(hjust = 0.5, face = 'bold'),
+        plot.subtitle = element_text(hjust = 0.5),
+        panel.background = element_rect(fill = 'white'),
+        panel.grid = element_line(color = 'darkgrey'),
+        axis.line = element_line(colour = 'black')
+      ) +
+      labs(
+        x = "δ13C‰",
+        y = "δ15N‰",
+        title = "Basic Plot of Anglo-Saxon Samples",
+        subtitle = "As of 08/08/2020"
+        ) +
+  coord_cartesian(xlim = c(-23,-16), ylim = c(4,14), expand = FALSE) +
+  scale_x_continuous(breaks = c(-23, -22, -21, -20, -19, -18, -17, -16)) +
+  scale_y_continuous(breaks = c(4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14))
+
 ```
 
