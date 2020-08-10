@@ -365,3 +365,33 @@ cats_Modern_jsample_G +
   #ggsave(here("figures", "Modern_from_set_by_Site.jpg"), dpi = 180, width = 8, height = 7)
 ```
 
+```{r collagen percentage graphing}
+#change order of periods to chronological
+x1 <- factor(j_samples, levels = c("Iron Age", "Roman", "Anglo-Saxon", "Medieval", "Post-Medieval", "Modern"))   
+                   
+                   
+#make graph
+coll_percent_graphing <- ggplot2::ggplot(data = j_samples, aes(x = period, y = collagen_percent, fill = period))
+
+coll_percent_graphing +
+   geom_boxplot() +
+   geom_point(stat = 'identity', alpha = 0.5) +
+   geom_jitter(width = 0.35) +
+   #geom_errorbar() +           NEEDDS CALCULATIONS
+  aes() +
+  theme(
+        plot.title = element_text(hjust = 0.5, face = 'bold'),
+        plot.subtitle = element_text(hjust = 0.5),
+        panel.background = element_rect(fill = 'white'),
+        panel.grid = element_line(color = 'darkgrey'),
+        axis.line = element_line(color = 'black'),
+        panel.grid.minor = element_line(color = 'white')
+      ) +
+  labs(
+    x = "Periods",
+    y = "Collagen Percentage Extracted",
+    title = "Plot of Percentage of viable collagen extracted"
+  ) 
+  
+```
+
