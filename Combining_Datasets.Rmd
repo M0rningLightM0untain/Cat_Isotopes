@@ -384,6 +384,7 @@ coll_percent_graphing +
    stat_boxplot(geom = "errorbar", linetype = 1, width = 0.5) +
    #geom_point(stat = 'identity', alpha = 0.5) +
    #geom_jitter(width = 0.35) +
+  scale_x_discrete(limits = c("Iron Age", "Roman", "Anglo-Saxon", "Medieval", "Post-Medieval", "Modern")) +
   aes() +
   theme(
         plot.title = element_text(hjust = 0.5, face = 'bold'),
