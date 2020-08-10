@@ -372,10 +372,10 @@ cats_Modern_jsample_G +
 #j_samples_prep <- j_samples %>%
   #fct_relevel(period, "Iron Age", "Roman", "Anglo-Saxon", "Medieval", "Post-Medieval", "Modern")
 
-##third times the charm
+##third times the charm - SPOILER IT SORT OF WAS
 j_samples <- j_samples%>%
-  arrange(period, .by_group = TRUE)
-                   
+  arrange(match(period, c("Iron Age", "Roman", "Anglo-Saxon", "Medieval", "Post-Medieval", "Modern")))
+  
 #make graph
 coll_percent_graphing <- ggplot2::ggplot(data = j_samples, aes(x = period, y = collagen_percent, fill = period))
 
