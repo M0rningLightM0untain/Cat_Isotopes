@@ -528,3 +528,36 @@ c_by_period_graphing_points +
                       breaks = c("Iron Age", "Roman", "Anglo-Saxon", "Medieval", "Post-Medieval", "Modern"))
 ```
 
+```{r generic code for plotting 1 variable for sites within a period (using Medieval Nitrogen as start)}
+
+#sets period and removes any empty values
+d15n_in_med <- ggplot2::ggplot(data = subset(tot_samples, period == "Medieval" & !is.na(d15n)), aes(x = site, y = d15n, fill = site))
+
+d15n_in_med +
+   geom_boxplot(outlier.alpha = 0) +
+   stat_boxplot(geom = "errorbar", linetype = 1, width = 0.5) +
+   #geom_point(stat = 'identity', alpha = 0.5, inherit.aes = TRUE, color = tot_samples$site) +
+   geom_jitter(width = 0.1) +
+  aes() +
+  theme(
+        plot.title = element_text(hjust = 0.5, face = 'bold'),
+        plot.subtitle = element_text(hjust = 0.5),
+        panel.background = element_rect(fill = 'white'),
+        panel.grid = element_line(color = 'darkgrey'),
+        axis.line = element_line(color = 'black'),
+        panel.grid.minor = element_line(color = 'white')
+      ) +
+  labs(
+    x = "Site",
+    y = "\u03B415N‰",
+    title = "Plot of Nitrogen Values by Site for Medieval Samples") +
+  coord_cartesian(ylim = c(5,15)) +
+  scale_y_continuous(breaks = c(5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15)) +
+  #changing legend
+  scale_fill_discrete(name = c("Site"),
+                      breaks = c("Bamburgh Castle", "Fishergate", "Wharram Percy"))
+
+
+
+```
+
