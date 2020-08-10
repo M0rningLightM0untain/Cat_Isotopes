@@ -18,6 +18,7 @@ library(kableExtra) #install.packages("kableExtra")
 library(skimr) #install.packages("skimr")
 library(dplyr)
 library(data.table)#install.packages("data.table")
+library(plyr)
 ```
 
 ```{r document startup}
@@ -367,17 +368,19 @@ cats_Modern_jsample_G +
 
 ```{r collagen percentage graphing}
 #change order of periods to chronological
-x1 <- factor(j_samples, levels = c("Iron Age", "Roman", "Anglo-Saxon", "Medieval", "Post-Medieval", "Modern"))   
-                   
+#x1 <- factor(j_samples, levels = c("Iron Age", "Roman", "Anglo-Saxon", "Medieval", "Post-Medieval", "Modern"))   
+
+#j_samples_prep <- j_samples %>%
+  #fct_relevel(period, "Iron Age", "Roman", "Anglo-Saxon", "Medieval", "Post-Medieval", "Modern")
                    
 #make graph
 coll_percent_graphing <- ggplot2::ggplot(data = j_samples, aes(x = period, y = collagen_percent, fill = period))
 
 coll_percent_graphing +
    geom_boxplot() +
-   geom_point(stat = 'identity', alpha = 0.5) +
-   geom_jitter(width = 0.35) +
-   #geom_errorbar() +           NEEDDS CALCULATIONS
+   stat_boxplot(geom = "errorbar", linetype = 1, width = 0.5) +
+   #geom_point(stat = 'identity', alpha = 0.5) +
+   #geom_jitter(width = 0.35) +
   aes() +
   theme(
         plot.title = element_text(hjust = 0.5, face = 'bold'),
