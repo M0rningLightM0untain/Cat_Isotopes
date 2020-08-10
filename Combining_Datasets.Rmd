@@ -17,8 +17,6 @@ library(janitor) #install.packages("janitor")
 library(kableExtra) #install.packages("kableExtra")
 library(skimr) #install.packages("skimr")
 library(dplyr)
-library(data.table)#install.packages("data.table")
-library(plyr)
 ```
 
 ```{r document startup}
@@ -367,11 +365,16 @@ cats_Modern_jsample_G +
 ```
 
 ```{r collagen percentage graphing}
-#change order of periods to chronological
+#change order of periods to chronological - FAILURE
 #x1 <- factor(j_samples, levels = c("Iron Age", "Roman", "Anglo-Saxon", "Medieval", "Post-Medieval", "Modern"))   
 
+##ANOTHER FAIL
 #j_samples_prep <- j_samples %>%
   #fct_relevel(period, "Iron Age", "Roman", "Anglo-Saxon", "Medieval", "Post-Medieval", "Modern")
+
+##third times the charm
+j_samples <- j_samples%>%
+  arrange(period, .by_group = TRUE)
                    
 #make graph
 coll_percent_graphing <- ggplot2::ggplot(data = j_samples, aes(x = period, y = collagen_percent, fill = period))
