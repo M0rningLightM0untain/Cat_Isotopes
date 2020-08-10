@@ -20,7 +20,7 @@ library(dplyr)
 library(data.table)#install.packages("data.table")
 ```
 
-```{r importing_data}
+```{r document startup}
 
 j_samples <- read_excel(here("data", "Samples_Master.xlsx"), sheet = "Jack_samples", n_max = 109)
 m_list_samples <- read_excel(here("data", "Samples_Master.xlsx"), sheet = "Masterlist_samples", n_max = 49)
@@ -30,9 +30,6 @@ j_samples <- j_samples %>%
   janitor::clean_names()
 m_list_samples <- m_list_samples %>%
   janitor::clean_names()
-```
-
-```{r tidying_samples_up}
 
 #unifying column names
 j_samples <- j_samples %>%
@@ -40,22 +37,11 @@ j_samples <- j_samples %>%
  
 m_list_samples <- m_list_samples %>%
   rename(sample_no=sample_number)
-```
-
-```{r combining}
-
 
 #joining the two together
 tot_samples <- m_list_samples %>%
   full_join(j_samples, by = c("sample_no", "do1_code", "site", "secondary_code", "period", "date", "element", "d13c", "d15n"))
-```
 
-```{r sorting&fixes}
-###TO DO
-  
-```
-
-```{r sorted into groups by period etc.}
 #creating individual groups by period
 tot_samples_grouped <- tot_samples %>%
   arrange(period)
@@ -78,10 +64,7 @@ cats_Roman <- tot_samples %>%
 cats_Modern_jsample <- tot_samples %>%
   filter(period == "Modern") #%>% remove_empty(which = c("cols"), quiet = TRUE)
 
-
 ```
-
-
 
 ```{r simple_graphs}
 plot_set <- tot_samples
