@@ -16,4 +16,59 @@ library(janitor) #install.packages("janitor")
 library(kableExtra) #install.packages("kableExtra")
 library(skimr) #install.packages("skimr")
 library(dplyr)
+library(RColorBrewer) #install.packages("RColorBrewer")
 ```
+
+```{r data import}
+O_data <- read_excel(here("data", "Returned_Oct.xlsx"), sheet = "data", n_max = 84)
+
+O_data <- O_data %>%
+  arrange(Period)
+
+O_data_S <- O_data [complete.cases(O_data$S),]
+
+#period sets
+
+O_data_Anglo_Sax <- O_data %>%
+  filter(Period == "Anglo-Saxon") #%>% remove_empty(which = c("cols"), quiet = TRUE)
+
+O_data_Iron_Age <- O_data %>%
+  filter(Period == "Iron Age") #%>% remove_empty(which = c("cols"), quiet = TRUE)
+
+O_data_Medieval <- O_data %>%
+  filter(Period == "Medieval") #%>% remove_empty(which = c("cols"), quiet = TRUE)
+
+O_data_Post_Med <- O_data %>%
+  filter(Period == "Post-Medieval")#%>% remove_empty(which = c("cols"), quiet = TRUE)
+
+O_data_Roman <- O_data %>%
+  filter(Period == "Roman") #%>% remove_empty(which = c("cols"), quiet = TRUE)
+
+O_data_Modern <- O_data %>%
+  filter(Period == "Modern") #%>% remove_empty(which = c("cols"), quiet = TRUE)
+
+#period sets Sulphur
+
+O_data_Anglo_Sax_S <- O_data_S %>%
+  filter(Period == "Anglo-Saxon") #%>% remove_empty(which = c("cols"), quiet = TRUE)
+
+O_data_Iron_Age_S <- O_data_S %>%
+  filter(Period == "Iron Age") #%>% remove_empty(which = c("cols"), quiet = TRUE)
+
+O_data_Medieval_S <- O_data_S %>%
+  filter(Period == "Medieval") #%>% remove_empty(which = c("cols"), quiet = TRUE)
+
+O_data_Post_Med_S <- O_data_S %>%
+  filter(Period == "Post-Medieval")#%>% remove_empty(which = c("cols"), quiet = TRUE)
+
+O_data_Roman_S <- O_data_S %>%
+  filter(Period == "Roman") #%>% remove_empty(which = c("cols"), quiet = TRUE)
+
+O_data_Modern_S <- O_data_S %>%
+  filter(Period == "Modern") #%>% remove_empty(which = c("cols"), quiet = TRUE)
+```
+
+```{r Base graphs}
+
+```
+
