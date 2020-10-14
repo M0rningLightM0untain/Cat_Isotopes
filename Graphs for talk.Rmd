@@ -316,14 +316,53 @@ O_data_Facet +
         x = "\u03B413C‰",
         y = "\u03B415N‰",
         title = "Isotopic analysis of Cat Bone",
-        subtitle = "Data avaliable as of 14/10/20",
+        subtitle = "Carbon / Nitrogen",
         color = "Period") +
-        facet_wrap(vars(Period), scales = "free_x") +
+        facet_wrap(vars(Period), scales = "free") +
   #axis limits
-  coord_cartesian(xlim = c(-23,-16), ylim = c(4,14), expand = FALSE) +
+  coord_cartesian(xlim = c(-23,-16), ylim = c(3.9,14.2), expand = FALSE) +
   #tick marks
   scale_x_continuous(breaks = seq(-23, -16, by = 1), minor_breaks = seq(-22.5, -17.5, by = 1)) +
-  scale_y_continuous(breaks = seq(5, 15, by = 1), minor_breaks = seq(5.5, 14.5, by = 1))
+  scale_y_continuous(breaks = seq(4, 16, by = 1), minor_breaks = seq(5.5, 14.5, by = 1))
+
+#Now with Sulphur
+
+O_data_new <- O_data_S%>%
+  arrange(match(Period, c("Iron Age", "Roman", "Anglo-Saxon", "Medieval", "Post-Medieval", "Modern"))) %>%
+  mutate(Period = ordered(Period, levels = unique(Period)))
+
+#plotting the results by period
+O_data_Facet <- ggplot2::ggplot(data = O_data_new, aes(x = C, y = S, group = Period))
+
+#all together
+O_data_Facet +
+  geom_point() +
+  aes(
+    color = Period
+  ) +
+  scale_color_brewer(palette = "Dark2") +
+      theme(
+        plot.title = element_text(hjust = 0.5, face = 'bold'),
+        plot.subtitle = element_text(hjust = 0.5),
+        panel.background = element_rect(fill = 'white'),
+        panel.grid = element_line(color = 'darkgrey'),
+        axis.line = element_line(color = 'black'),
+        panel.grid.minor = element_line(color = 'white'),
+        strip.background = element_rect(color = 'white', fill = 'white'),
+        panel.spacing.x = unit(2, "lines")
+        ) +
+      labs(
+        x = "\u03B413C‰",
+        y = "\u03B434S‰",
+        title = "Isotopic analysis of Cat Bone",
+        subtitle = "Carbon / Sulphur",
+        color = "Period") +
+        facet_wrap(vars(Period), scales = "free") +
+  #axis limits
+  coord_cartesian(xlim = c(-23,-16), ylim = c(-7, 12), expand = FALSE) +
+  #tick marks
+  scale_x_continuous(breaks = seq(-23, -16, by = 1), minor_breaks = seq(-22.5, -17.5, by = 1)) +
+  scale_y_continuous(breaks = seq(-7, 12, by = 2), minor_breaks = NULL)
 ```
 
 ```{r Anglo-Saxon graph}
@@ -350,7 +389,7 @@ O_data_G +
         x = "\u03B413C‰",
         y = "\u03B415N‰",
         title = "Anglo-Saxon",
-        subtitle = "Carbon/Nitrogen",
+        subtitle = "Carbon / Nitrogen",
         color = "Site"
         ) +
   #axis limits
@@ -385,7 +424,7 @@ O_data_G +
         x = "\u03B413C‰",
         y = "\u03B415N‰",
         title = "Iron Age",
-        subtitle = "Carbon/Nitrogen",
+        subtitle = "Carbon / Nitrogen",
         color = "Site"
         ) +
   #axis limits
@@ -420,7 +459,7 @@ O_data_G +
         x = "\u03B413C‰",
         y = "\u03B415N‰",
         title = "Roman",
-        subtitle = "Carbon/Nitrogen",
+        subtitle = "Carbon / Nitrogen",
         color = "Site"
         ) +
   #axis limits
@@ -455,7 +494,7 @@ O_data_G +
         x = "\u03B413C‰",
         y = "\u03B415N‰",
         title = "Medieval",
-        subtitle = "Carbon/Nitrogen",
+        subtitle = "Carbon / Nitrogen",
         color = "Site"
         ) +
   #axis limits
@@ -490,7 +529,7 @@ O_data_G +
         x = "\u03B413C‰",
         y = "\u03B415N‰",
         title = "Post-Medieval",
-        subtitle = "Carbon/Nitrogen",
+        subtitle = "Carbon / Nitrogen",
         color = "Site"
         ) +
   #axis limits
@@ -525,7 +564,7 @@ O_data_G +
         x = "\u03B413C‰",
         y = "\u03B415N‰",
         title = "Modern",
-        subtitle = "Carbon/Nitrogen",
+        subtitle = "Carbon / Nitrogen",
         color = "Site"
         ) +
   #axis limits
