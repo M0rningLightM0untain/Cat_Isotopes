@@ -27,6 +27,8 @@ O_data <- O_data %>%
 
 O_data_S <- O_data [complete.cases(O_data$S),]
 
+F_ref_data <- read_excel(here("data", "Returned_Oct.xlsx"), sheet = "Foreign_examples", n_max = 7)
+
 #period sets
 
 O_data_Anglo_Sax <- O_data %>%
@@ -69,6 +71,468 @@ O_data_Modern_S <- O_data_S %>%
 ```
 
 ```{r Base graphs}
+O_data_new <- O_data%>%
+  arrange(match(Period, c("Iron Age", "Roman", "Anglo-Saxon", "Medieval", "Post-Medieval", "Modern")))
+
+O_graphing <- ggplot2::ggplot(data = O_data_new, aes(x = C, y = N, color = Period))
+
+O_graphing +
+  geom_point() +
+  aes() +
+  # scale_color_brewer(type = qual, palette = "Set1")+
+      theme(
+        plot.title = element_text(hjust = 0.5, face = 'bold'),
+        plot.subtitle = element_text(hjust = 0.5),
+        panel.background = element_rect(fill = 'white'),
+        panel.grid = element_line(color = 'darkgrey'),
+        axis.line = element_line(color = 'black'),
+        panel.grid.minor = element_line(color = 'white')) +
+      labs(
+        x = "\u03B413C‰",
+        y = "\u03B415N‰",
+        title = "Isotopic analysis of Cat Bone",
+        subtitle = "Data avaliable as of 14/10/20") +
+  #axis limits
+  coord_cartesian(xlim = c(-23,-16), ylim = c(4,14), expand = FALSE) +
+  #tick marks
+  scale_x_continuous(breaks = c(-23, -22, -21, -20, -19, -18, -17, -16)) +
+  scale_y_continuous(breaks = c(4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14))
 
 ```
 
+```{r Carbon and Nitrogen whole dataset}
+O_data_new <- O_data%>%
+  arrange(match(Period, c("Iron Age", "Roman", "Anglo-Saxon", "Medieval", "Post-Medieval", "Modern")))
+
+#make graph
+O_data_N <- ggplot2::ggplot(data = O_data_new, aes(x = Period, y = N, fill = Period))
+
+O_data_N +
+   geom_boxplot(outlier.alpha = 0) +
+   stat_boxplot(geom = "errorbar", linetype = 1, width = 0.5) +
+   #geom_point(stat = 'identity', alpha = 0.5) +
+   #geom_jitter(width = 0.35, height = 0.1) +
+  scale_x_discrete(limits = c("Iron Age", "Roman", "Anglo-Saxon", "Medieval", "Post-Medieval", "Modern")) +
+  aes() +
+  theme(
+        plot.title = element_text(hjust = 0.5, face = 'bold'),
+        plot.subtitle = element_text(hjust = 0.5),
+        panel.background = element_rect(fill = 'white'),
+        panel.grid = element_line(color = 'darkgrey'),
+        axis.line = element_line(color = 'black'),
+        panel.grid.minor.x = element_line(color = 'white'),
+        panel.grid.minor.y = element_line(color = 'grey'),
+        panel.grid.major.y = element_line(color = 'darkgrey')
+      ) +
+  labs(
+    x = "Periods",
+    y = "\u03B415N‰",
+    title = "Plot of Nitrogen Values by Period") +
+  coord_cartesian(ylim = c(5,15)) +
+  scale_y_continuous(breaks = seq(5, 15, by = 1), minor_breaks = seq(5.5, 14.5, by = 1)) +
+  #changing legend order
+  scale_fill_discrete(name = "Period",
+                      breaks = c("Iron Age", "Roman", "Anglo-Saxon", "Medieval", "Post-Medieval", "Modern"))
+
+##Nitrogen values just points
+O_data_N <- ggplot2::ggplot(data = O_data_new, aes(x = Period, y = N, color = Period))
+
+O_data_N +
+   #geom_boxplot() +
+   #stat_boxplot(geom = "errorbar", linetype = 1, width = 0.5) +
+   #geom_point(stat = 'identity') +
+   geom_jitter(width = 0.1, height = 0) +
+  scale_x_discrete(limits = c("Iron Age", "Roman", "Anglo-Saxon", "Medieval", "Post-Medieval", "Modern")) +
+  aes() +
+  theme(
+        plot.title = element_text(hjust = 0.5, face = 'bold'),
+        plot.subtitle = element_text(hjust = 0.5),
+        panel.background = element_rect(fill = 'white'),
+        panel.grid = element_line(color = 'darkgrey'),
+        axis.line = element_line(color = 'black'),
+        panel.grid.minor.x = element_line(color = 'white'),
+        panel.grid.minor.y = element_line(color = 'grey'),
+        panel.grid.major.y = element_line(color = 'darkgrey')
+      ) +
+  labs(
+    x = "Periods",
+    y = "\u03B415N‰",
+    title = "Plot of Nitrogen Values by Period") +
+  coord_cartesian(ylim = c(5,15)) +
+  scale_y_continuous(breaks = seq(5, 15, by = 1), minor_breaks = seq(5.5, 14.5, by = 1)) +
+  #changing legend order
+  scale_color_discrete(name = "Period",
+                      breaks = c("Iron Age", "Roman", "Anglo-Saxon", "Medieval", "Post-Medieval", "Modern"))
+
+  
+#make graph
+O_data_C <- ggplot2::ggplot(data = O_data_new, aes(x = Period, y = C, fill = Period))
+
+O_data_C +
+   geom_boxplot(outlier.alpha = 0) +
+   stat_boxplot(geom = "errorbar", linetype = 1, width = 0.5) +
+   #geom_point(stat = 'identity', alpha = 0.5) +
+   #geom_jitter(width = 0.35, height = 0.1) +
+  scale_x_discrete(limits = c("Iron Age", "Roman", "Anglo-Saxon", "Medieval", "Post-Medieval", "Modern")) +
+  aes() +
+  theme(
+        plot.title = element_text(hjust = 0.5, face = 'bold'),
+        plot.subtitle = element_text(hjust = 0.5),
+        panel.background = element_rect(fill = 'white'),
+        panel.grid = element_line(color = 'darkgrey'),
+        axis.line = element_line(color = 'black'),
+        panel.grid.minor.x = element_line(color = 'white'),
+        panel.grid.minor.y = element_line(color = 'grey'),
+        panel.grid.major.y = element_line(color = 'darkgrey')
+      ) +
+  labs(
+    x = "Periods",
+    y = "\u03B413C‰",
+    title = "Plot of Carbon Values by Period") +
+  #coord_cartesian(ylim = c(5,15)) +
+  scale_y_continuous(breaks = seq(-23, -16, by = 1), minor_breaks = seq(-22.5, -17.5, by = 1)) +
+  #changing legend order
+  scale_fill_discrete(name = "Period",
+                      breaks = c("Iron Age", "Roman", "Anglo-Saxon", "Medieval", "Post-Medieval", "Modern"))
+
+##Carbon values just points
+O_data_C <- ggplot2::ggplot(data = O_data_new, aes(x = Period, y = C, color = Period))
+
+O_data_C +
+   #geom_boxplot() +
+   #stat_boxplot(geom = "errorbar", linetype = 1, width = 0.5) +
+   #geom_point(stat = 'identity') +
+   geom_jitter(width = 0.1, height = 0) +
+  scale_x_discrete(limits = c("Iron Age", "Roman", "Anglo-Saxon", "Medieval", "Post-Medieval", "Modern")) +
+  aes() +
+  theme(
+        plot.title = element_text(hjust = 0.5, face = 'bold'),
+        plot.subtitle = element_text(hjust = 0.5),
+        panel.background = element_rect(fill = 'white'),
+        panel.grid = element_line(color = 'grey'),
+        axis.line = element_line(color = 'black'),
+        panel.grid.minor.x = element_line(color = 'white'),
+        panel.grid.minor.y = element_line(color = 'grey'),
+        panel.grid.major.y = element_line(color = 'darkgrey')
+      ) +
+  labs(
+    x = "Periods",
+    y = "\u03B413C‰",
+    title = "Plot of Carbon Values by Period") +
+  #coord_cartesian(ylim = c(5,15)) +
+  scale_y_continuous(breaks = seq(-23, -16, by = 1), minor_breaks = seq(-22.5, -17.5, by = 1)) +
+  #changing legend order
+  scale_color_discrete(name = "Period",
+                      breaks = c("Iron Age", "Roman", "Anglo-Saxon", "Medieval", "Post-Medieval", "Modern"))
+
+#make graph
+O_data_SG <- ggplot2::ggplot(data = O_data_S, aes(x = Period, y = S, fill = Period))
+
+O_data_SG +
+   geom_boxplot(outlier.alpha = 0) +
+   stat_boxplot(geom = "errorbar", linetype = 1, width = 0.5) +
+   #geom_point(stat = 'identity', alpha = 0.5) +
+   #geom_jitter(width = 0.35, height = 0.1) +
+  scale_x_discrete(limits = c("Iron Age", "Roman", "Anglo-Saxon", "Medieval", "Post-Medieval", "Modern")) +
+  aes() +
+  theme(
+        plot.title = element_text(hjust = 0.5, face = 'bold'),
+        plot.subtitle = element_text(hjust = 0.5),
+        panel.background = element_rect(fill = 'white'),
+        panel.grid = element_line(color = 'darkgrey'),
+        axis.line = element_line(color = 'black'),
+        panel.grid.minor.x = element_line(color = 'white'),
+        panel.grid.minor.y = element_line(color = 'grey'),
+        panel.grid.major.y = element_line(color = 'darkgrey')
+      ) +
+  labs(
+    x = "Periods",
+    y = "\u03B434S‰",
+    title = "Plot of Sulphur Values by Period") +
+  #coord_cartesian(ylim = c(5,15)) +
+  scale_y_continuous(breaks = seq(-7, 12, by = 1), minor_breaks = NULL) +
+  #changing legend order
+  scale_fill_discrete(name = "Period",
+                      breaks = c("Iron Age", "Roman", "Anglo-Saxon", "Medieval", "Post-Medieval", "Modern"))
+
+##Carbon values just points
+O_data_SG <- ggplot2::ggplot(data = O_data_S, aes(x = Period, y = S, color = Period))
+
+O_data_SG +
+   #geom_boxplot() +
+   #stat_boxplot(geom = "errorbar", linetype = 1, width = 0.5) +
+   #geom_point(stat = 'identity') +
+   geom_jitter(width = 0.1, height = 0) +
+  scale_x_discrete(limits = c("Iron Age", "Roman", "Anglo-Saxon", "Medieval", "Post-Medieval", "Modern")) +
+  aes() +
+  theme(
+        plot.title = element_text(hjust = 0.5, face = 'bold'),
+        plot.subtitle = element_text(hjust = 0.5),
+        panel.background = element_rect(fill = 'white'),
+        panel.grid = element_line(color = 'grey'),
+        axis.line = element_line(color = 'black'),
+        panel.grid.minor.x = element_line(color = 'white'),
+        panel.grid.minor.y = element_line(color = 'grey'),
+        panel.grid.major.y = element_line(color = 'darkgrey')
+      ) +
+  labs(
+    x = "Periods",
+    y = "\u03B434S‰",
+    title = "Plot of Sulphur Values by Period") +
+  #coord_cartesian(ylim = c(5,15)) +
+  scale_y_continuous(breaks = seq(-7, 12, by = 1), minor_breaks = NULL) +
+  #changing legend order
+  scale_color_discrete(name = "Period",
+                      breaks = c("Iron Age", "Roman", "Anglo-Saxon", "Medieval", "Post-Medieval", "Modern"))
+
+```
+
+```{r faceted}
+O_data_new <- O_data%>%
+  arrange(match(Period, c("Iron Age", "Roman", "Anglo-Saxon", "Medieval", "Post-Medieval", "Modern"))) %>%
+  mutate(Period = ordered(Period, levels = unique(Period)))
+
+#plotting the results by period
+O_data_Facet <- ggplot2::ggplot(data = O_data_new, aes(x = C, y = N, group = Period))
+
+#all together
+O_data_Facet +
+  geom_point() +
+  aes(
+    color = Period
+  ) +
+  scale_color_brewer(palette = "Dark2") +
+      theme(
+        plot.title = element_text(hjust = 0.5, face = 'bold'),
+        plot.subtitle = element_text(hjust = 0.5),
+        panel.background = element_rect(fill = 'white'),
+        panel.grid = element_line(color = 'darkgrey'),
+        axis.line = element_line(color = 'black'),
+        panel.grid.minor = element_line(color = 'white'),
+        strip.background = element_rect(color = 'white', fill = 'white'),
+        panel.spacing.x = unit(2, "lines")
+        ) +
+      labs(
+        x = "\u03B413C‰",
+        y = "\u03B415N‰",
+        title = "Isotopic analysis of Cat Bone",
+        subtitle = "Data avaliable as of 14/10/20",
+        color = "Period") +
+        facet_wrap(vars(Period), scales = "free_x") +
+  #axis limits
+  coord_cartesian(xlim = c(-23,-16), ylim = c(4,14), expand = FALSE) +
+  #tick marks
+  scale_x_continuous(breaks = seq(-23, -16, by = 1), minor_breaks = seq(-22.5, -17.5, by = 1)) +
+  scale_y_continuous(breaks = seq(5, 15, by = 1), minor_breaks = seq(5.5, 14.5, by = 1))
+```
+
+```{r Anglo-Saxon graph}
+
+#each period colored by site
+O_data_G <- ggplot2::ggplot(data = O_data_Anglo_Sax, aes(x = C, y = N, group = Site))
+
+O_data_G +
+  geom_point(size = 2) +
+  aes(
+    color = Site
+  ) +
+      theme(
+        plot.title = element_text(hjust = 0.5, face = 'bold'),
+        plot.subtitle = element_text(hjust = 0.5),
+        panel.background = element_rect(fill = 'white'),
+        panel.grid = element_line(color = 'darkgrey'),
+        axis.line = element_line(color = 'black'),
+        panel.grid.minor = element_line(color = 'white'),
+        strip.background = element_rect(color = 'white', fill = 'white'),
+        panel.spacing.x = unit(2, "lines")
+      ) +
+      labs(
+        x = "\u03B413C‰",
+        y = "\u03B415N‰",
+        title = "Anglo-Saxon",
+        subtitle = "Carbon/Nitrogen",
+        color = "Site"
+        ) +
+  #axis limits
+  coord_cartesian(xlim = c(-23,-16), ylim = c(4,14), expand = FALSE) +
+  #tick marks
+  scale_x_continuous(breaks = seq(-23, -16, by = 1), minor_breaks = seq(-22.5, -17.5, by = 1)) +
+  scale_y_continuous(breaks = seq(5, 15, by = 1), minor_breaks = seq(5.5, 14.5, by = 1))
+
+  #ggsave(here("figures", "Anglo-Saxon_by_site .jpg"), dpi = 180, width = 8, height = 7)
+```
+
+```{r Iron Age}
+#each period colored by site
+O_data_G <- ggplot2::ggplot(data = O_data_Iron_Age, aes(x = C, y = N, group = Site))
+
+O_data_G +
+  geom_point(size = 2) +
+  aes(
+    color = Site
+  ) +
+      theme(
+        plot.title = element_text(hjust = 0.5, face = 'bold'),
+        plot.subtitle = element_text(hjust = 0.5),
+        panel.background = element_rect(fill = 'white'),
+        panel.grid = element_line(color = 'darkgrey'),
+        axis.line = element_line(color = 'black'),
+        panel.grid.minor = element_line(color = 'white'),
+        strip.background = element_rect(color = 'white', fill = 'white'),
+        panel.spacing.x = unit(2, "lines")
+      ) +
+      labs(
+        x = "\u03B413C‰",
+        y = "\u03B415N‰",
+        title = "Iron Age",
+        subtitle = "Carbon/Nitrogen",
+        color = "Site"
+        ) +
+  #axis limits
+  coord_cartesian(xlim = c(-23,-16), ylim = c(4,14), expand = FALSE) +
+  #tick marks
+  scale_x_continuous(breaks = seq(-23, -16, by = 1), minor_breaks = seq(-22.5, -17.5, by = 1)) +
+  scale_y_continuous(breaks = seq(5, 15, by = 1), minor_breaks = seq(5.5, 14.5, by = 1))
+
+  #ggsave(here("figures", "Iron_Age_by_Site.jpg"), dpi = 180, width = 8, height = 7)
+```
+
+```{r Roman Graphs}
+#each period colored by site
+O_data_G <- ggplot2::ggplot(data = O_data_Roman, aes(x = C, y = N, group = Site))
+
+O_data_G +
+  geom_point(size = 2) +
+  aes(
+    color = Site
+  ) +
+      theme(
+       plot.title = element_text(hjust = 0.5, face = 'bold'),
+        plot.subtitle = element_text(hjust = 0.5),
+        panel.background = element_rect(fill = 'white'),
+        panel.grid = element_line(color = 'darkgrey'),
+        axis.line = element_line(color = 'black'),
+        panel.grid.minor = element_line(color = 'white'),
+        strip.background = element_rect(color = 'white', fill = 'white'),
+        panel.spacing.x = unit(2, "lines")
+      ) +
+      labs(
+        x = "\u03B413C‰",
+        y = "\u03B415N‰",
+        title = "Roman",
+        subtitle = "Carbon/Nitrogen",
+        color = "Site"
+        ) +
+  #axis limits
+  coord_cartesian(xlim = c(-23,-16), ylim = c(4,14), expand = FALSE) +
+  #tick marks
+  scale_x_continuous(breaks = seq(-23, -16, by = 1), minor_breaks = seq(-22.5, -17.5, by = 1)) +
+  scale_y_continuous(breaks = seq(5, 15, by = 1), minor_breaks = seq(5.5, 14.5, by = 1))
+
+  #ggsave(here("figures", "Roman_by_Site.jpg"), dpi = 180, width = 8, height = 7)
+```
+
+```{r Medieval gragh}
+#each period colored by site
+O_data_G <- ggplot2::ggplot(data = O_data_Medieval, aes(x = C, y = N, group = Site))
+
+O_data_G +
+  geom_point(size = 2) +
+  aes(
+    color = Site,
+  )+
+      theme(
+        plot.title = element_text(hjust = 0.5, face = 'bold'),
+        plot.subtitle = element_text(hjust = 0.5),
+        panel.background = element_rect(fill = 'white'),
+        panel.grid = element_line(color = 'darkgrey'),
+        axis.line = element_line(color = 'black'),
+        panel.grid.minor = element_line(color = 'white'),
+        strip.background = element_rect(color = 'white', fill = 'white'),
+        panel.spacing.x = unit(2, "lines")
+      ) +
+      labs(
+        x = "\u03B413C‰",
+        y = "\u03B415N‰",
+        title = "Medieval",
+        subtitle = "Carbon/Nitrogen",
+        color = "Site"
+        ) +
+  #axis limits
+  coord_cartesian(xlim = c(-23,-16), ylim = c(4,14), expand = FALSE) +
+  #tick marks
+  scale_x_continuous(breaks = seq(-23, -16, by = 1), minor_breaks = seq(-22.5, -17.5, by = 1)) +
+  scale_y_continuous(breaks = seq(5, 15, by = 1), minor_breaks = seq(5.5, 14.5, by = 1))
+
+  #ggsave(here("figures", "Medieval_by_Site.jpg"), dpi = 180, width = 8, height = 7)
+```
+
+```{r Post-Medieval}
+#each period colored by site
+O_data_G <- ggplot2::ggplot(data = O_data_Post_Med, aes(x = C, y = N, group = Site))
+
+O_data_G +
+  geom_point(size = 2) +
+  aes(
+    color = Site
+  ) +
+      theme(
+        plot.title = element_text(hjust = 0.5, face = 'bold'),
+        plot.subtitle = element_text(hjust = 0.5),
+        panel.background = element_rect(fill = 'white'),
+        panel.grid = element_line(color = 'darkgrey'),
+        axis.line = element_line(color = 'black'),
+        panel.grid.minor = element_line(color = 'white'),
+        strip.background = element_rect(color = 'white', fill = 'white'),
+        panel.spacing.x = unit(2, "lines")
+      ) +
+      labs(
+        x = "\u03B413C‰",
+        y = "\u03B415N‰",
+        title = "Post-Medieval",
+        subtitle = "Carbon/Nitrogen",
+        color = "Site"
+        ) +
+  #axis limits
+  coord_cartesian(xlim = c(-23,-16), ylim = c(4,14), expand = FALSE) +
+  #tick marks
+  scale_x_continuous(breaks = seq(-23, -16, by = 1), minor_breaks = seq(-22.5, -17.5, by = 1)) +
+  scale_y_continuous(breaks = seq(5, 15, by = 1), minor_breaks = seq(5.5, 14.5, by = 1))
+
+  #ggsave(here("figures", "Post-Medieval_by_Site.jpg"), dpi = 180, width = 8, height = 7)
+```
+
+```{r Modern}
+#each period colored by site
+O_data_G <- ggplot2::ggplot(data = O_data_Modern, aes(x = C, y = N, group = Site))
+
+O_data_G +
+  geom_point(size = 2) +
+  aes(
+    color = Site
+  ) +
+      theme(
+        plot.title = element_text(hjust = 0.5, face = 'bold'),
+        plot.subtitle = element_text(hjust = 0.5),
+        panel.background = element_rect(fill = 'white'),
+        panel.grid = element_line(color = 'darkgrey'),
+        axis.line = element_line(color = 'black'),
+        panel.grid.minor = element_line(color = 'white'),
+        strip.background = element_rect(color = 'white', fill = 'white'),
+        panel.spacing.x = unit(2, "lines")
+      ) +
+      labs(
+        x = "\u03B413C‰",
+        y = "\u03B415N‰",
+        title = "Modern",
+        subtitle = "Carbon/Nitrogen",
+        color = "Site"
+        ) +
+  #axis limits
+  coord_cartesian(xlim = c(-23,-16), ylim = c(4,14), expand = FALSE) +
+  #tick marks
+  scale_x_continuous(breaks = seq(-23, -16, by = 1), minor_breaks = seq(-22.5, -17.5, by = 1)) +
+  scale_y_continuous(breaks = seq(5, 15, by = 1), minor_breaks = seq(5.5, 14.5, by = 1))
+
+  #ggsave(here("figures", "Modern_from_set_by_Site.jpg"), dpi = 180, width = 8, height = 7)
+```
