@@ -15,8 +15,9 @@ library(here) #install.packages("here")
 library(janitor) #install.packages("janitor")
 library(kableExtra) #install.packages("kableExtra")
 library(skimr) #install.packages("skimr")
-library(dplyr)
+library(dplyr) #install.packages("dplyr")
 library(RColorBrewer) #install.packages("RColorBrewer")
+library(formattable) #install.packages("formattable")
 ```
 
 ```{r data import}
@@ -99,6 +100,50 @@ O_graphing +
   scale_y_continuous(breaks = c(4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14))
 
 ```
+
+```{r foreign reference C/N}
+#dataprep
+F_ref_data_m <- F_ref_data
+
+F_ref_data_m$Label <- paste(F_ref_data$Country, F_ref_data$Date, sep = " - ")
+  
+
+#each period colored by site
+F_ref_data_G <- ggplot2::ggplot(data = F_ref_data_m, aes(x = Carbon, y = Nitrogen, group = Country))
+
+F_ref_data_G +
+  geom_point(size = 2) +
+  aes(
+    color = Label
+  ) +
+      theme(
+        plot.title = element_text(hjust = 0.5, face = 'bold'),
+        plot.subtitle = element_text(hjust = 0.5),
+        panel.background = element_rect(fill = 'white'),
+        panel.grid = element_line(color = 'darkgrey'),
+        axis.line = element_line(color = 'black'),
+        panel.grid.minor = element_line(color = 'white'),
+        strip.background = element_rect(color = 'white', fill = 'white'),
+        panel.spacing.x = unit(2, "lines")
+      ) +
+      labs(
+        x = "\u03B413C‰",
+        y = "\u03B415N‰",
+        title = "European Archaeological Reference",
+        subtitle = "Carbon / Nitrogen",
+        color = "Country"
+        ) +
+  #axis limits
+  coord_cartesian(xlim = c(-23,-16), ylim = c(4,14), expand = FALSE) +
+  #tick marks
+  scale_x_continuous(breaks = seq(-23, -16, by = 1), minor_breaks = seq(-22.5, -17.5, by = 1)) +
+  scale_y_continuous(breaks = seq(5, 15, by = 1), minor_breaks = seq(5.5, 14.5, by = 1))
+
+  #ggsave(here("figures", "Iron_Age_by_Site.jpg"), dpi = 180, width = 8, height = 7)
+
+
+```
+
 
 ```{r Carbon and Nitrogen whole dataset}
 O_data_new <- O_data%>%
@@ -575,3 +620,25 @@ O_data_G +
 
   #ggsave(here("figures", "Modern_from_set_by_Site.jpg"), dpi = 180, width = 8, height = 7)
 ```
+
+```{r test table}
+#data prep
+O_data_tab <- O_data
+
+O_data_tab$C <- formatC(O_data_tab$C, format = "f", digits = 2)
+O_data_tab$N <- formatC(O_data_tab$N, format = "f", digits = 2)
+O_data_tab$S <- formatC(O_data_tab$S, format = "f", digits = 2)
+
+
+colnames(O_data_tab)[4] = "\u03B413C‰"
+colnames(O_data_tab)[5] = "\u03B415N‰"
+colnames(O_data_tab)[6] = "\u03B434S‰"
+
+O_data_tab <- O_data_tab %>%
+  arrange(match(Period, c("Iron Age", "Roman", "Anglo-Saxon", "Medieval", "Post-Medieval", "Modern")))
+
+
+#table print
+formattable(O_data_tab, align = c("l", "c", "c", "r", "r", "r"))
+```
+
