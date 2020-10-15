@@ -99,6 +99,8 @@ O_graphing +
   scale_x_continuous(breaks = c(-23, -22, -21, -20, -19, -18, -17, -16)) +
   scale_y_continuous(breaks = c(4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14))
 
+ggsave(here("figures", "CarbonNitrogen.pdf"), dpi = 180, width = 8, height = 7)
+
 ```
 
 ```{r foreign reference C/N}
@@ -139,7 +141,7 @@ F_ref_data_G +
   scale_x_continuous(breaks = seq(-23, -16, by = 1), minor_breaks = seq(-22.5, -17.5, by = 1)) +
   scale_y_continuous(breaks = seq(5, 15, by = 1), minor_breaks = seq(5.5, 14.5, by = 1))
 
-  #ggsave(here("figures", "Iron_Age_by_Site.jpg"), dpi = 180, width = 8, height = 7)
+  ggsave(here("figures", "European Archeological Reference.pdf"), dpi = 180, width = 8, height = 7)
 
 
 ```
@@ -179,6 +181,9 @@ O_data_N +
   scale_fill_discrete(name = "Period",
                       breaks = c("Iron Age", "Roman", "Anglo-Saxon", "Medieval", "Post-Medieval", "Modern"))
 
+ggsave(here("figures", "Nitrogen_box.pdf"), dpi = 180, width = 8, height = 7)
+
+
 ##Nitrogen values just points
 O_data_N <- ggplot2::ggplot(data = O_data_new, aes(x = Period, y = N, color = Period))
 
@@ -208,6 +213,9 @@ O_data_N +
   #changing legend order
   scale_color_discrete(name = "Period",
                       breaks = c("Iron Age", "Roman", "Anglo-Saxon", "Medieval", "Post-Medieval", "Modern"))
+
+ggsave(here("figures", "Nitrogen_dot.pdf"), dpi = 180, width = 8, height = 7)
+
 
   
 #make graph
@@ -240,6 +248,9 @@ O_data_C +
   scale_fill_discrete(name = "Period",
                       breaks = c("Iron Age", "Roman", "Anglo-Saxon", "Medieval", "Post-Medieval", "Modern"))
 
+ggsave(here("figures", "Carbon_box.pdf"), dpi = 180, width = 8, height = 7)
+
+
 ##Carbon values just points
 O_data_C <- ggplot2::ggplot(data = O_data_new, aes(x = Period, y = C, color = Period))
 
@@ -269,6 +280,9 @@ O_data_C +
   #changing legend order
   scale_color_discrete(name = "Period",
                       breaks = c("Iron Age", "Roman", "Anglo-Saxon", "Medieval", "Post-Medieval", "Modern"))
+
+ggsave(here("figures", "Carbon_dot.pdf"), dpi = 180, width = 8, height = 7)
+
 
 #make graph
 O_data_SG <- ggplot2::ggplot(data = O_data_S, aes(x = Period, y = S, fill = Period))
@@ -300,6 +314,9 @@ O_data_SG +
   scale_fill_discrete(name = "Period",
                       breaks = c("Iron Age", "Roman", "Anglo-Saxon", "Medieval", "Post-Medieval", "Modern"))
 
+ggsave(here("figures", "Sulphur_box.pdf"), dpi = 180, width = 8, height = 7)
+
+
 ##Carbon values just points
 O_data_SG <- ggplot2::ggplot(data = O_data_S, aes(x = Period, y = S, color = Period))
 
@@ -329,6 +346,9 @@ O_data_SG +
   #changing legend order
   scale_color_discrete(name = "Period",
                       breaks = c("Iron Age", "Roman", "Anglo-Saxon", "Medieval", "Post-Medieval", "Modern"))
+
+ggsave(here("figures", "Sulphur_dot.pdf"), dpi = 180, width = 8, height = 7)
+
 
 ```
 
@@ -370,6 +390,9 @@ O_data_Facet +
   scale_x_continuous(breaks = seq(-23, -16, by = 1), minor_breaks = seq(-22.5, -17.5, by = 1)) +
   scale_y_continuous(breaks = seq(4, 16, by = 1), minor_breaks = seq(5.5, 14.5, by = 1))
 
+ggsave(here("figures", "CN_facet.pdf"), dpi = 180, width = 8, height = 5)
+
+
 #Now with Sulphur
 
 O_data_new <- O_data_S%>%
@@ -408,6 +431,9 @@ O_data_Facet +
   #tick marks
   scale_x_continuous(breaks = seq(-23, -16, by = 1), minor_breaks = seq(-22.5, -17.5, by = 1)) +
   scale_y_continuous(breaks = seq(-7, 12, by = 2), minor_breaks = NULL)
+
+ggsave(here("figures", "CS_facet.pdf"), dpi = 180, width = 8, height = 5)
+
 ```
 
 ```{r Anglo-Saxon graph}
@@ -642,3 +668,37 @@ O_data_tab <- O_data_tab %>%
 formattable(O_data_tab, align = c("l", "c", "c", "r", "r", "r"))
 ```
 
+```{r Anglo-Sax}
+#each period colored by site
+O_data_G <- ggplot2::ggplot(data = O_data_Anglo_Sax_S, aes(x = C, y = S, group = Site))
+
+O_data_G +
+  geom_point(size = 2) +
+  aes(
+    color = Site
+  ) +
+      theme(
+        plot.title = element_text(hjust = 0.5, face = 'bold'),
+        plot.subtitle = element_text(hjust = 0.5),
+        panel.background = element_rect(fill = 'white'),
+        panel.grid = element_line(color = 'darkgrey'),
+        axis.line = element_line(color = 'black'),
+        panel.grid.minor = element_line(color = 'white'),
+        strip.background = element_rect(color = 'white', fill = 'white'),
+        panel.spacing.x = unit(2, "lines")
+      ) +
+      labs(
+        x = "\u03B413C‰",
+        y = "\u03B434S‰",
+        title = "Anglo-Saxon",
+        subtitle = "Carbon / Sulphur",
+        color = "Site"
+        ) +
+  #axis limits
+  coord_cartesian(xlim = c(-23,-16), ylim = c(-7,12), expand = FALSE) +
+  #tick marks
+  scale_x_continuous(breaks = seq(-23, -16, by = 1), minor_breaks = seq(-22.5, -17.5, by = 1)) +
+  scale_y_continuous(breaks = seq(-7, 12, by = 1), minor_breaks = NULL)
+
+  #ggsave(here("figures", "Iron_Age_by_Site.jpg"), dpi = 180, width = 8, height = 7)
+```
